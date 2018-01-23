@@ -16,3 +16,9 @@ If you use Windows, edit the Makefile to generate CMake files to Visual Studio.
 
 After run, open in your browser:  
 http://localhost:9090/
+
+# Requirements
+
+You need cmake installed.  
+> brew install cmake  
+
