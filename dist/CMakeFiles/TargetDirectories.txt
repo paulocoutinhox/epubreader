@@ -1,3 +1,0 @@
-/Users/paulo/Developer/workspaces/cpp/epubreader/dist/CMakeFiles/rebuild_cache.dir
-/Users/paulo/Developer/workspaces/cpp/epubreader/dist/CMakeFiles/edit_cache.dir
-/Users/paulo/Developer/workspaces/cpp/epubreader/dist/CMakeFiles/epubreader.dir

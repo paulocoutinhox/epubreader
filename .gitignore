@@ -1,5 +1,6 @@
-# CMake
+# Build
 build
+dist
 
 # System
 .DS_Store
