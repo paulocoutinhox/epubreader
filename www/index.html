@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <script src="js/jquery-3.3.1.slim.min.js"></script>
+    <script src="js/libs/zip.min.js"></script>
+    <script src="js/epub.min.js"></script>
+
+    <title>EPubReader</title>
+
+    <script>
+        "use strict";
+
+        var ebook = null;
+
+        document.onreadystatechange = function () {
+            if (document.readyState == 'complete') {
+                var width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+                var height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+                var offset = 40;
+                var offsetHalf = offset / 2;
+
+                $('#area').css('width', width - offset);
+                $('#area').css('height', height - offset);
+                $('#area').css('margin', offsetHalf + 'px auto 0 auto');
+
+                ebook = ePub('ebook.epub', {
+                    width: width - offset,
+                    height: height - offset,
+                    spreads: false,
+                    restore: false,
+                    storage: false
+                });
+
+                ebook.forceSingle(true);
+
+                ebook.renderTo('area').then(function () {
+                    //
+                });
+
+                ebook.on('book:pageChanged', function (location) {
+                    console.log(location);
+                });
+
+                ebook.on('renderer:resized', function (data) {
+                    console.log(data);
+                });
+            }
+        };
+
+        function setTheme(theme) {
+            switch (theme) {
+                case 'default':
+                    ebook.setStyle('background-color', '#FFF');
+                    ebook.setStyle('color', '#6C7073');
+                    break;
+
+                case 'dark':
+                    ebook.setStyle('background-color', '#33383B');
+                    ebook.setStyle('color', '#9BA8AD');
+                    break;
+
+                case 'sepia':
+                    ebook.setStyle('background-color', '#DFDAD4');
+                    ebook.setStyle('color', '#494742');
+                    break;
+            }
+        }
+
+        function getCurrentPageCfi() {
+            return ebook.getCurrentLocationCfi()
+        }
+
+        function goToPageCfi(cfi) {
+            var page = ebook.pagination.pageFromCfi(currentLocation);
+            ebook.gotoPage(page);
+        }
+
+        function onPageChanged() {
+            // call ios/android functions to callback
+        }
+
+        function getTOC() {
+            ebook.getToc().then(function (toc) {
+                console.log(toc);
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div id="main">
+        <div id="prev" onclick="ebook.prevPage();" class="arrow">‹</div>
+        <div id="wrapper">
+            <div id="area"></div>
+        </div>
+        <div id="next" onclick="ebook.nextPage();" class="arrow">›</div>
+    </div>
+</body>
+
+</html>
