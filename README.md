@@ -6,7 +6,7 @@ The browser can be your local machine, or you can run the C++ code on Mobile too
 
 # Run
 
-> git clone https://github.com/prsolucoes/epubreader.git  
+> git clone https://github.com/prsolucoes/epubreader.git --recursive  
 > cd epubreader  
 > make run  
 
