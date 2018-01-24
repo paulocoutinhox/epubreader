@@ -1,6 +1,6 @@
 # Build
-build
-dist
+/build
+/dist
 
 # System
 .DS_Store
@@ -10,3 +10,12 @@ Thumbs.db
 .idea
 .iml
 .vscode
+
+# EzoRed
+/temp
+/vendor
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class

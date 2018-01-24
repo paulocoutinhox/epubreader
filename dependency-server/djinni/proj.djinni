@@ -1,0 +1,6 @@
+# EpubServer class
+epub_reader_server = interface +c {
+	static create(document_root: string, epub_file: string): epub_reader_server;
+    start();
+    stop();
+}

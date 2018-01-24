@@ -1,6 +1,6 @@
-# EPub Reader
+# Epub Reader
 
-This is a C++ server that let you read your EPub on browser.  
+This is a C++ server that let you read your Epub on browser.  
 
 The browser can be your local machine, or you can run the C++ code on Mobile too.  
 

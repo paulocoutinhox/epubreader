@@ -1,3 +1,6 @@
 [submodule "vendor/civetweb"]
 	path = vendor/civetweb
 	url = https://github.com/civetweb/civetweb.git
+[submodule "thirdparty/civetweb"]
+	path = thirdparty/civetweb
+	url = https://github.com/civetweb/civetweb.git
