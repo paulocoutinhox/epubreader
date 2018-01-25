@@ -16,7 +16,7 @@ EpubReaderServerImpl::EpubReaderServerImpl(const std::string & documentRoot, con
 
     this->documentRoot = documentRoot;
     this->epubFile = epubFile;
-    this->port = 9090;
+    this->port = 19090;
 }
 
 EpubReaderServerImpl::~EpubReaderServerImpl()
