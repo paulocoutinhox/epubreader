@@ -1,5 +1,7 @@
 #include "EpubReaderServerImpl.hpp"
 #include <iostream>
+#include <string>
+#include <sstream>
 
 namespace EpubReader {
 
@@ -24,11 +26,14 @@ EpubReaderServerImpl::~EpubReaderServerImpl()
 
 void EpubReaderServerImpl::start()
 {
+    std::ostringstream portStr;
+    portStr << port;
+    
     const char *options[] = {
 		"document_root",
 		documentRoot.c_str(),
 		"listening_ports",
-		std::to_string(port).c_str(),
+		portStr.str().c_str(),
 		0
 	};
 

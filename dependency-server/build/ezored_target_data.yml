@@ -12,9 +12,15 @@ targets:
       - file: "${EZORED_DEPENDENCY_SOURCE_DIR}/djinni/objc-output/EPREpubReaderServer.h"
       - file: "${EZORED_DEPENDENCY_SOURCE_DIR}/djinni/objc-output/EPREpubReaderServer+Private.h"
       - file: "${EZORED_DEPENDENCY_SOURCE_DIR}/source/cpp/EpubReaderServerImpl.hpp"
+      - file: "${EZORED_DEPENDENCY_SOURCE_DIR}/source/shared/EpubHandler.hpp"
+      - file: "${EZORED_PROJECT_HOME}/thirdparty/civetweb/include/CivetServer.h"
+      - file: "${EZORED_PROJECT_HOME}/thirdparty/civetweb/include/civetweb.h"
     source_files:
-      - file: "${EZORED_DEPENDENCY_SOURCE_DIR}/djinni/objc-output/EpubReaderServer+Private.mm"
+      - file: "${EZORED_DEPENDENCY_SOURCE_DIR}/djinni/objc-output/EPREpubReaderServer+Private.mm"
       - file: "${EZORED_DEPENDENCY_SOURCE_DIR}/source/cpp/EpubReaderServerImpl.cpp"
+      - file: "${EZORED_DEPENDENCY_SOURCE_DIR}/source/shared/EpubHandler.cpp"
+      - file: "${EZORED_PROJECT_HOME}/thirdparty/civetweb/src/CivetServer.cpp"
+      - file: "${EZORED_PROJECT_HOME}/thirdparty/civetweb/src/civetweb.c"
     framework_links:
     - CoreFoundation
 - name: android
@@ -29,9 +35,15 @@ targets:
       - file: "${EZORED_DEPENDENCY_SOURCE_DIR}/djinni/cpp-output/EpubReaderServer.hpp"
       - file: "${EZORED_DEPENDENCY_SOURCE_DIR}/djinni/jni-output/EPREpubReaderServer.hpp"
       - file: "${EZORED_DEPENDENCY_SOURCE_DIR}/source/cpp/EpubReaderServerImpl.hpp"
+      - file: "${EZORED_DEPENDENCY_SOURCE_DIR}/source/shared/EpubHandler.hpp"
+      - file: "${EZORED_PROJECT_HOME}/thirdparty/civetweb/include/CivetServer.h"
+      - file: "${EZORED_PROJECT_HOME}/thirdparty/civetweb/include/civetweb.h"
     source_files:
       - file: "${EZORED_DEPENDENCY_SOURCE_DIR}/djinni/jni-output/EPREpubReaderServer.cpp"
       - file: "${EZORED_DEPENDENCY_SOURCE_DIR}/source/cpp/EpubReaderServerImpl.cpp"
+      - file: "${EZORED_DEPENDENCY_SOURCE_DIR}/source/shared/EpubHandler.cpp"
+      - file: "${EZORED_PROJECT_HOME}/thirdparty/civetweb/src/CivetServer.cpp"
+      - file: "${EZORED_PROJECT_HOME}/thirdparty/civetweb/src/civetweb.c"
     tasks:
       - type: copy_file
         params:

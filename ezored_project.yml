@@ -3,7 +3,7 @@ config:
   name: epubreader
   ios:
     cmake_version: 3.9
-    development_team_id: ABCDEFGHIJ
+    development_team_id: 54BDV6YZ73
     bundle_id: com.epubreader.library
     code_sign_identity: iPhone Developer
     deployment_target: '8.0'
