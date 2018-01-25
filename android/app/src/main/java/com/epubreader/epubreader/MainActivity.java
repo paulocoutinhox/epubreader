@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBtStartClick(View view) {
         server.start();
         Toast.makeText(this, "Server started!", Toast.LENGTH_SHORT).show();
-        webview.loadUrl("http://localhost:19090");
+        webview.loadUrl("http://localhost:9090");
     }
 
     public void onBtStopClick(View view) {
