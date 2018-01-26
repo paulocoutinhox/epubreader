@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,8 +27,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Locale;
-import java.util.logging.Logger;
 
 public class EpubReaderFragment extends Fragment {
 
@@ -157,7 +154,7 @@ public class EpubReaderFragment extends Fragment {
     }
 
     public interface EpubReaderFragmentListener {
-        void onEpubLoaded();
+        void onReady();
     }
 
     /**
@@ -281,17 +278,12 @@ public class EpubReaderFragment extends Fragment {
     private class EpubReaderJavascriptInterface {
 
         @JavascriptInterface
-        public void getPageData(final int currentPageIndex, final int totalPages, final float percentage) {
-
-        }
-
-        @JavascriptInterface
-        public void pageLoaded() {
+        public void onReady() {
             if (listener != null) {
                 runOnMainThread(new Closure() {
                     @Override
                     public void exec() {
-                        listener.onEpubLoaded();
+                        listener.onReady();
                     }
                 });
             }

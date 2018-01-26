@@ -67,10 +67,10 @@
                     console.log('ready.all');
 
                     if (typeof AndroidApp != 'undefined') {
-                        AndroidApp.onEpubLoaded();
+                        AndroidApp.onReady();
                     } else {
                         setupWebViewJavascriptBridge(function (bridge) {
-                            bridge.callHandler('onEpubLoaded', {}, function (response) { });
+                            bridge.callHandler('onReady', {}, function (response) { });
                         });
                     }
                 });

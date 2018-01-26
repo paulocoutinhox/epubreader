@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements EpubReaderFragmen
     }
 
     @Override
-    public void onEpubLoaded() {
+    public void onReady() {
         progressDialog.dismiss();
     }
 }
