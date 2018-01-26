@@ -4,12 +4,13 @@
 
 #define DOCUMENT_ROOT "../www"
 #define EPUB_FILE "../data/ebook.epub"
+#define PORT "9090"
 
 bool canExit = false;
 
-void create() 
+void create()
 {
-	auto server =  EpubReader::EpubReaderServer::create(DOCUMENT_ROOT, EPUB_FILE);
+	auto server =  EpubReader::EpubReaderServer::create(PORT, DOCUMENT_ROOT, EPUB_FILE);
 	server->start();
 }
 
@@ -18,7 +19,7 @@ int main(int argc, char *argv[])
 	// test of memory dealloc - only for reference - let commented
 	// create();
 
-	auto server = EpubReader::EpubReaderServer::create(DOCUMENT_ROOT, EPUB_FILE);
+	auto server = EpubReader::EpubReaderServer::create(PORT, DOCUMENT_ROOT, EPUB_FILE);
 	server->start();
 
 	while (!canExit)

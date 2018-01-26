@@ -30,10 +30,12 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
     return self;
 }
 
-+ (nullable EPREpubReaderServer *)create:(nonnull NSString *)documentRoot
++ (nullable EPREpubReaderServer *)create:(nonnull NSString *)port
+                            documentRoot:(nonnull NSString *)documentRoot
                                 epubFile:(nonnull NSString *)epubFile {
     try {
-        auto objcpp_result_ = ::EpubReader::EpubReaderServer::create(::djinni::String::toCpp(documentRoot),
+        auto objcpp_result_ = ::EpubReader::EpubReaderServer::create(::djinni::String::toCpp(port),
+                                                                     ::djinni::String::toCpp(documentRoot),
                                                                      ::djinni::String::toCpp(epubFile));
         return ::djinni_generated::EpubReaderServer::fromCpp(objcpp_result_);
     } DJINNI_TRANSLATE_EXCEPTIONS()

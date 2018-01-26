@@ -11,7 +11,7 @@ public abstract class EpubReaderServer {
 
     public abstract void stop();
 
-    public static native EpubReaderServer create(String documentRoot, String epubFile);
+    public static native EpubReaderServer create(String port, String documentRoot, String epubFile);
 
     private static final class CppProxy extends EpubReaderServer
     {

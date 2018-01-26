@@ -19,11 +19,12 @@ CJNIEXPORT void JNICALL Java_com_epubreader_library_EpubReaderServer_00024CppPro
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
 }
 
-CJNIEXPORT jobject JNICALL Java_com_epubreader_library_EpubReaderServer_create(JNIEnv* jniEnv, jobject /*this*/, jstring j_documentRoot, jstring j_epubFile)
+CJNIEXPORT jobject JNICALL Java_com_epubreader_library_EpubReaderServer_create(JNIEnv* jniEnv, jobject /*this*/, jstring j_port, jstring j_documentRoot, jstring j_epubFile)
 {
     try {
         DJINNI_FUNCTION_PROLOGUE0(jniEnv);
-        auto r = ::EpubReader::EpubReaderServer::create(::djinni::String::toCpp(jniEnv, j_documentRoot),
+        auto r = ::EpubReader::EpubReaderServer::create(::djinni::String::toCpp(jniEnv, j_port),
+                                                        ::djinni::String::toCpp(jniEnv, j_documentRoot),
                                                         ::djinni::String::toCpp(jniEnv, j_epubFile));
         return ::djinni::release(::djinni_generated::EPREpubReaderServer::fromCpp(jniEnv, r));
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, 0 /* value doesn't matter */)

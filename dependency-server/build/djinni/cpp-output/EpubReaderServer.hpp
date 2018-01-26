@@ -13,7 +13,7 @@ class EpubReaderServer {
 public:
     virtual ~EpubReaderServer() {}
 
-    static std::shared_ptr<EpubReaderServer> create(const std::string & document_root, const std::string & epub_file);
+    static std::shared_ptr<EpubReaderServer> create(const std::string & port, const std::string & document_root, const std::string & epub_file);
 
     virtual void start() = 0;
 

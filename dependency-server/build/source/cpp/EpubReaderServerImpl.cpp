@@ -5,18 +5,18 @@
 
 namespace EpubReader {
 
-std::shared_ptr<EpubReaderServer> EpubReaderServer::create(const std::string & document_root, const std::string & epub_file)
+std::shared_ptr<EpubReaderServer> EpubReaderServer::create(const std::string & port, const std::string & document_root, const std::string & epub_file)
 {
-    return std::make_shared<EpubReaderServerImpl>(document_root, epub_file);
+    return std::make_shared<EpubReaderServerImpl>(port, document_root, epub_file);
 }
 
-EpubReaderServerImpl::EpubReaderServerImpl(const std::string & documentRoot, const std::string & epubFile)
+EpubReaderServerImpl::EpubReaderServerImpl(const std::string & port, const std::string & documentRoot, const std::string & epubFile)
 {   
     std::cout << "EpubReaderServerImpl::EpubReaderServerImpl" << std::endl; 
 
+    this->port = port;
     this->documentRoot = documentRoot;
-    this->epubFile = epubFile;
-    this->port = 9090;
+    this->epubFile = epubFile;    
 }
 
 EpubReaderServerImpl::~EpubReaderServerImpl()
@@ -26,14 +26,15 @@ EpubReaderServerImpl::~EpubReaderServerImpl()
 
 void EpubReaderServerImpl::start()
 {
-    std::ostringstream portStr;
-    portStr << port;
+    std::string errorLogFilePath = documentRoot + "/epubreader.log";
     
     const char *options[] = {
 		"document_root",
 		documentRoot.c_str(),
 		"listening_ports",
-		portStr.str().c_str(),
+		port.c_str(),
+        "error_log_file",
+        errorLogFilePath.c_str(),
 		0
 	};
 
@@ -54,8 +55,8 @@ void EpubReaderServerImpl::start()
     server = std::make_shared<CivetServer>(cppOptions);    
     server->addHandler("/ebook.epub", &(*epubHandler));
 
-    printf("Server started at http://localhost:%d\n", port);
-	printf("Get epub at http://localhost:%d/ebook.epub\n", port);
+    printf("Server started at http://localhost:%s\n", port.c_str());
+	printf("Get epub at http://localhost:%s/ebook.epub\n", port.c_str());
 }
 
 void EpubReaderServerImpl::stop()

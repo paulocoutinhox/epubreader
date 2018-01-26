@@ -1,0 +1,47 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_item_start"
+        android:title="Start"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_item_stop"
+        android:title="Stop"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_item_home"
+        android:title="Home"
+        app:showAsAction="never" />
+
+    <item android:title="Reader">
+
+        <menu>
+
+            <item
+                android:id="@+id/menu_item_next_page"
+                android:title="Next page"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/menu_item_theme_default"
+                android:title="Theme: Default"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/menu_item_theme_dark"
+                android:title="Theme: Dark"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/menu_item_server_log"
+                android:title="Server Log"
+                app:showAsAction="never" />
+
+        </menu>
+
+    </item>
+
+</menu>
