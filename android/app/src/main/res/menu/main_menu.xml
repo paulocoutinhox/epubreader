@@ -26,6 +26,16 @@
                 app:showAsAction="never" />
 
             <item
+                android:id="@+id/menu_item_page_cfi"
+                android:title="Page Cfi"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/menu_item_current_chapter"
+                android:title="Current chapter"
+                app:showAsAction="never" />
+
+            <item
                 android:id="@+id/menu_item_theme_default"
                 android:title="Theme: Default"
                 app:showAsAction="never" />

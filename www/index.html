@@ -52,15 +52,43 @@
                 ebook.forceSingle(true);
 
                 ebook.on('book:pageChanged', function (location) {
+                    console.log('book:pageChanged');
                     console.log(location);
+
+                    if (typeof AndroidApp != 'undefined') {
+                        AndroidApp.onPageChanged(location.anchorPage, location.percentage);
+                    } else {
+                        setupWebViewJavascriptBridge(function (bridge) {
+                            bridge.callHandler('onPageChanged', {
+                                'page': location.anchorPage,
+                                'percentage': location.percentage
+                            }, function (response) { });
+                        });
+                    }
+                });
+
+                ebook.on('book:resized', function (data) {
+                    console.log('book:resized');
+                    console.log(data);
                 });
 
                 ebook.on('renderer:resized', function (data) {
+                    console.log('renderer:resized');
                     console.log(data);
                 });
 
-                ebook.on('renderer:orientationchanged', function (data) {
+                ebook.on('renderer:orientationChanged', function (data) {
+                    console.log('renderer:orientationChanged');
                     console.log(data);
+                });
+
+                ebook.on('renderer:locationChanged', function (location) {
+                    console.log('renderer:locationChanged');
+                    var percent = ebook.locations.percentageFromCfi(location);
+                    var percentage = Math.floor(percent * 100);
+                    console.log(location);
+                    console.log(percentage);
+                    console.log(percent);
                 });
 
                 ebook.ready.all.then(function () {
@@ -110,7 +138,22 @@
         }
 
         function getCurrentPageCfi() {
-            return ebook.getCurrentLocationCfi()
+            return ebook.getCurrentLocationCfi();
+        }
+
+        function getCurrentChapter() {
+            var c = ebook.renderer.currentChapter;
+            var r = {
+                'id': c.id,
+                'href': c.href,
+                'pages': c.pages,
+                'spinePos': c.spinePos,
+                'absoluteHref': c.absolute,
+                'cfi': c.cfi,
+                'title': c.contents.title
+            };
+
+            return JSON.stringify(r);
         }
 
         function goToPageCfi(cfi) {
@@ -118,8 +161,9 @@
             ebook.gotoPage(page);
         }
 
-        function onPageChanged() {
-            // call ios/android functions to callback
+        function goToPercentage(perc) {
+            var cfi = book.locations.cfiFromPercentage(slider.value);
+            ebook.gotoCfi(cfi);
         }
 
         function getTOC() {

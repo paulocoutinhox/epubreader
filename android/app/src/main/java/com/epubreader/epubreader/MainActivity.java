@@ -10,12 +10,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements EpubReaderFragment.EpubReaderFragmentListener {
 
     private EpubReaderFragment fragment;
     private ProgressDialog progressDialog;
+    private TextView tvPage;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -31,6 +35,10 @@ public class MainActivity extends AppCompatActivity implements EpubReaderFragmen
         String home = getFilesDir().getAbsolutePath();
         String documentRoot = home + "/www";
         String epubFile = home + "/data/ebook.epub";
+
+        // page textview
+        tvPage = findViewById(R.id.tv_page);
+
 
         // main fragment
         fragment = EpubReaderFragment.newInstance(port, home, documentRoot, epubFile);
@@ -94,13 +102,37 @@ public class MainActivity extends AppCompatActivity implements EpubReaderFragmen
                 fragment.actionNextPage();
                 return true;
 
+            case R.id.menu_item_page_cfi:
+                fragment.actionGetCurrentPageCfi(new EpubReaderFragment.PageCfiClosure() {
+                    @Override
+                    public void exec(String cfi) {
+                        Toast.makeText(MainActivity.this, String.format(Locale.getDefault(), "Cfi: %s", cfi), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                return true;
+
+            case R.id.menu_item_current_chapter:
+                fragment.actionGetCurrentChapter(new EpubReaderFragment.CurrentChapterClosure() {
+                    @Override
+                    public void exec(String id, String href, int pages, int spinePos, String absoluteHref, String cfi, String title) {
+                        Toast.makeText(MainActivity.this, String.format(Locale.getDefault(), "ID: %s\nHREF: %s\nPages: %d\nSpinePos: %d\nAbs HREF: %s\nCFI: %s\nTitle: %s", id, href, pages, spinePos, absoluteHref, cfi, title), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
     @Override
-    public void onReady() {
+    public void onEpubReaderReady() {
         progressDialog.dismiss();
     }
+
+    @Override
+    public void onEpubReaderPageChanged(int page, double percentage) {
+        tvPage.setText(String.format(Locale.getDefault(), "Page: %d - %.0f%%", page, Math.ceil(percentage * 100)));
+    }
+
 }
