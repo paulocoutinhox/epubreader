@@ -19,6 +19,12 @@
 
         var ebook = null;
 
+        var width = 0;
+        var height = 0;
+        var offset = 40;
+        var offsetHalf = offset / 2;
+        var supportsOrientationChange = 'onorientationchange' in window, orientationEvent = supportsOrientationChange ? 'orientationchange' : 'resize';
+
         function setupWebViewJavascriptBridge(callback) {
             if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
             if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
@@ -29,85 +35,6 @@
             document.documentElement.appendChild(WVJBIframe);
             setTimeout(function () { document.documentElement.removeChild(WVJBIframe) }, 0)
         }
-
-        document.onreadystatechange = function () {
-            if (document.readyState == 'complete') {
-                var width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-                var height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-                var offset = 40;
-                var offsetHalf = offset / 2;
-
-                $('#area').css('width', width - offset);
-                $('#area').css('height', height - offset);
-                $('#area').css('margin', offsetHalf + 'px auto 0 auto');
-
-                ebook = ePub('ebook.epub', {
-                    width: width - offset,
-                    height: height - offset,
-                    spreads: false,
-                    restore: false,
-                    storage: false
-                });
-
-                ebook.forceSingle(true);
-
-                ebook.on('book:pageChanged', function (location) {
-                    console.log('book:pageChanged');
-                    console.log(location);
-
-                    if (typeof AndroidApp != 'undefined') {
-                        AndroidApp.onPageChanged(location.anchorPage, location.percentage);
-                    } else {
-                        setupWebViewJavascriptBridge(function (bridge) {
-                            bridge.callHandler('onPageChanged', {
-                                'page': location.anchorPage,
-                                'percentage': location.percentage
-                            }, function (response) { });
-                        });
-                    }
-                });
-
-                ebook.on('book:resized', function (data) {
-                    console.log('book:resized');
-                    console.log(data);
-                });
-
-                ebook.on('renderer:resized', function (data) {
-                    console.log('renderer:resized');
-                    console.log(data);
-                });
-
-                ebook.on('renderer:orientationChanged', function (data) {
-                    console.log('renderer:orientationChanged');
-                    console.log(data);
-                });
-
-                ebook.on('renderer:locationChanged', function (location) {
-                    console.log('renderer:locationChanged');
-                    var percent = ebook.locations.percentageFromCfi(location);
-                    var percentage = Math.floor(percent * 100);
-                    console.log(location);
-                    console.log(percentage);
-                    console.log(percent);
-                });
-
-                ebook.ready.all.then(function () {
-                    console.log('ready.all');
-
-                    if (typeof AndroidApp != 'undefined') {
-                        AndroidApp.onReady();
-                    } else {
-                        setupWebViewJavascriptBridge(function (bridge) {
-                            bridge.callHandler('onReady', {}, function (response) { });
-                        });
-                    }
-                });
-
-                ebook.renderTo('area').then(function () {
-                    //
-                });
-            }
-        };
 
         function setTheme(theme) {
             switch (theme) {
@@ -171,6 +98,111 @@
                 console.log(toc);
             });
         }
+
+        function updateScreenSizeInfo() {
+            width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+            height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+        }
+
+        function resizeToScreenSize() {
+            updateScreenSizeInfo();
+
+            $('#area').css('width', width - offset);
+            $('#area').css('height', height - offset);
+
+            ebook.renderer.resize(width - offset, height - offset);
+        }
+
+        function afterLoad() {
+            updateScreenSizeInfo();
+
+            $('#area').css('width', width - offset);
+            $('#area').css('height', height - offset);
+
+            ebook = ePub('ebook.epub', {
+                width: width - offset,
+                height: height - offset,
+                spreads: false,
+                restore: false,
+                storage: false
+            });
+
+            ebook.forceSingle(true);
+
+            ebook.on('book:pageChanged', function (location) {
+                console.log('book:pageChanged');
+                console.log(location);
+
+                if (typeof AndroidApp != 'undefined') {
+                    AndroidApp.onPageChanged(location.anchorPage, location.percentage);
+                } else {
+                    setupWebViewJavascriptBridge(function (bridge) {
+                        bridge.callHandler('onPageChanged', {
+                            'page': location.anchorPage,
+                            'percentage': location.percentage
+                        }, function (response) { });
+                    });
+                }
+            });
+
+            ebook.on('book:resized', function (data) {
+                console.log('book:resized');
+                console.log(data);
+            });
+
+            ebook.on('renderer:resized', function (data) {
+                console.log('renderer:resized');
+                console.log(data);
+            });
+
+            ebook.on('renderer:orientationChanged', function (data) {
+                console.log('renderer:orientationChanged');
+                console.log(data);
+            });
+
+            ebook.on('renderer:locationChanged', function (location) {
+                console.log('renderer:locationChanged');
+                var percent = ebook.locations.percentageFromCfi(location);
+                var percentage = Math.floor(percent * 100);
+                console.log(location);
+                console.log(percentage);
+                console.log(percent);
+            });
+
+            ebook.ready.all.then(function () {
+                console.log('ready.all');
+
+                if (typeof AndroidApp != 'undefined') {
+                    AndroidApp.onReady();
+                } else {
+                    setupWebViewJavascriptBridge(function (bridge) {
+                        bridge.callHandler('onReady', {}, function (response) { });
+                    });
+                }
+            });
+
+            window.addEventListener('resize', function () {
+                console.log('resize event');
+                resizeToScreenSize();
+            }, false);
+
+            /*
+            window.addEventListener('orientationchange', function () {
+                console.log('orientation change event');
+                resizeToScreenSize();
+            }, false);
+            */
+
+            ebook.renderTo('area').then(function () {
+                //
+            });
+        }
+
+        document.onreadystatechange = function () {
+            if (document.readyState == 'complete') {
+                afterLoad();
+            }
+        };
     </script>
 </head>
 

@@ -48,3 +48,7 @@ body {
 .arrow:active {
     color: #000;
 }
+
+#wrapper {
+    padding: 20px;
+}
