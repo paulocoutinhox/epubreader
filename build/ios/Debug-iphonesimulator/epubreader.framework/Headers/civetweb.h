@@ -94,6 +94,10 @@ enum {
 	/* Will only work, if USE_SERVER_STATS is set. */
 	MG_FEATURES_STATS = 0x100u,
 
+	/* Support on-the-fly compression. */
+	/* Will only work, if USE_ZLIB is set. */
+	MG_FEATURES_COMPRESSION = 0x200u,
+
 	/* Collect server status information. */
 	/* Will only work, if USE_SERVER_STATS is set. */
 	MG_FEATURES_ALL = 0xFFFFu
@@ -876,10 +880,41 @@ CIVETWEB_API void mg_send_file(struct mg_connection *conn, const char *path);
 
 
 /* Send HTTP error reply. */
-CIVETWEB_API void mg_send_http_error(struct mg_connection *conn,
-                                     int status_code,
-                                     PRINTF_FORMAT_STRING(const char *fmt),
-                                     ...) PRINTF_ARGS(3, 4);
+CIVETWEB_API int mg_send_http_error(struct mg_connection *conn,
+                                    int status_code,
+                                    PRINTF_FORMAT_STRING(const char *fmt),
+                                    ...) PRINTF_ARGS(3, 4);
+
+
+/* Send "HTTP 200 OK" response header.
+ * After calling this function, use mg_write or mg_send_chunk to send the
+ * response body.
+ * Parameters:
+ *   conn: Current connection handle.
+ *   mime_type: Set Content-Type for the following content.
+ *   content_length: Size of the following content, if content_length >= 0.
+ *                   Will set transfer-encoding to chunked, if set to -1.
+ * Return:
+ *   < 0   Error
+ */
+CIVETWEB_API int mg_send_http_ok(struct mg_connection *conn,
+                                 const char *mime_type,
+                                 long long content_length);
+
+
+/* Send "HTTP 30x" redirect response.
+ * The response has content-size zero: do not send any body data after calling
+ * this function.
+ * Parameters:
+ *   conn: Current connection handle.
+ *   target_url: New location.
+ *   redirect_code: HTTP redirect type. Could be 301, 302, 303, 307, 308.
+ * Return:
+ *   < 0   Error (-1 send error, -2 parameter error)
+ */
+CIVETWEB_API int mg_send_http_redirect(struct mg_connection *conn,
+                                       const char *target_url,
+                                       int redirect_code);
 
 
 /* Send HTTP digest access authentication request.

@@ -30,7 +30,7 @@
 		</data>
 		<key>Headers/EPREpubReaderServer.h</key>
 		<data>
-		gTNou4Bgv4G1hjBE+qrF/NO2LRY=
+		7+dbiRyIlE/OkraLmulllkrB/cc=
 		</data>
 		<key>Headers/EpubHandler.hpp</key>
 		<data>
@@ -38,19 +38,19 @@
 		</data>
 		<key>Headers/EpubReaderServer.hpp</key>
 		<data>
-		jPrGZC1SIgrD2mKK7BEGfmu/+2E=
+		Mfmoz1KVPQX6v1JvQuGIdWVx4Ew=
 		</data>
 		<key>Headers/EpubReaderServerImpl.hpp</key>
 		<data>
-		gJVKIAcHZ5Llyc7/nogfrUiyges=
+		DlwCBMfamOwStKI6G1OroeqYtLE=
 		</data>
 		<key>Headers/civetweb.h</key>
 		<data>
-		Es1hnv38SHp7DEJmnSbIxthvRUI=
+		aQrV2Pl/eL6kz+Z9ALYJsneJ8Nc=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		ISV32dgorLhma5YDYnFNVr9zEzE=
+		xO9pKG7bzNMF/XZPt5D1aiJAilo=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -125,11 +125,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			gTNou4Bgv4G1hjBE+qrF/NO2LRY=
+			7+dbiRyIlE/OkraLmulllkrB/cc=
 			</data>
 			<key>hash2</key>
 			<data>
-			WhEoZihwZuWPtT8R3dpgwvp5GAF2C5kUm+F5DdFcBjA=
+			jwAvV1QwwdU42i5kzV0KUMtMqfIp84FyTqcLEG5etKA=
 			</data>
 		</dict>
 		<key>Headers/EpubHandler.hpp</key>
@@ -147,33 +147,33 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			jPrGZC1SIgrD2mKK7BEGfmu/+2E=
+			Mfmoz1KVPQX6v1JvQuGIdWVx4Ew=
 			</data>
 			<key>hash2</key>
 			<data>
-			eW7WOfHs1P6V3pAHgeOcrd8EQxnU36OYtIjeQxBNESI=
+			qU/3+PRFNa1U7gmTespyoPbDFU3Fka6Kh2KnRsnEVn0=
 			</data>
 		</dict>
 		<key>Headers/EpubReaderServerImpl.hpp</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			gJVKIAcHZ5Llyc7/nogfrUiyges=
+			DlwCBMfamOwStKI6G1OroeqYtLE=
 			</data>
 			<key>hash2</key>
 			<data>
-			JK9Z6Bv2FAiuzAQgqosA5yBdN3LTFJTrVJc2qP+PrHg=
+			9qbem5d1NweLuYsU6NNudyPVP30MhlJQWK1mqRsdqYI=
 			</data>
 		</dict>
 		<key>Headers/civetweb.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Es1hnv38SHp7DEJmnSbIxthvRUI=
+			aQrV2Pl/eL6kz+Z9ALYJsneJ8Nc=
 			</data>
 			<key>hash2</key>
 			<data>
-			rVMyjwrq/R1Ks92C0NHAT2o0NerZ7Mhgz4GZTwJ86MI=
+			AVH/9fBI3un/x/3caAcgVAKLqtFr2KS3/XDVQxPleb8=
 			</data>
 		</dict>
 	</dict>

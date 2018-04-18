@@ -9,7 +9,7 @@ namespace EpubReader {
 class EpubReaderServerImpl: public EpubReaderServer {
     
 public:
-    EpubReaderServerImpl(const std::string & documentRoot, const std::string & epubFile);
+    EpubReaderServerImpl(const std::string & port, const std::string & documentRoot, const std::string & epubFile);
     ~EpubReaderServerImpl();
 
     void start();
@@ -18,7 +18,7 @@ public:
 private:
     std::string documentRoot;
     std::string epubFile;
-    int port;
+    std::string port;
     
     std::shared_ptr<EpubHandler> epubHandler;
     std::shared_ptr<CivetServer> server;

@@ -8,7 +8,8 @@
 /** EpubServer class */
 @interface EPREpubReaderServer : NSObject
 
-+ (nullable EPREpubReaderServer *)create:(nonnull NSString *)documentRoot
++ (nullable EPREpubReaderServer *)create:(nonnull NSString *)port
+                            documentRoot:(nonnull NSString *)documentRoot
                                 epubFile:(nonnull NSString *)epubFile;
 
 - (void)start;
